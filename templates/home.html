@@ -1,0 +1,53 @@
+{% extends "base.html" %}{% block content %}
+<main class="home">
+<section class="hero-v3">
+  <div class="hero-panel reveal-left">
+    <div class="hero-kicker"><span></span> GIFT SHOP / NOT A GENERAL STORE</div>
+    <h1>Give them<br><em>a story</em><br>to keep.</h1>
+    <p>Personalized keepsakes, odd little objects and decor with a reason to exist. Built around the person, not the algorithm.</p>
+    <div class="hero-buttons"><a class="btn dark" href="/finder">Find their gift <strong>↗</strong></a><a class="underlink" href="/shop">Browse the collection</a></div>
+    <div class="hero-proof"><span>80+</span><small>gifts made for<br>specific people</small><span>01</span><small>start with<br>their story</small></div>
+  </div>
+  <div class="hero-collage reveal-right">
+    <div class="shape shape-a"></div><div class="shape shape-b"></div>
+    <div class="polaroid p1"><img src="{{url_for('static',filename='images/products/personalized-04.svg')}}"><span>their date</span></div>
+    <div class="polaroid p2"><img src="{{url_for('static',filename='images/products/couple-06.svg')}}"><span>our place</span></div>
+    <div class="polaroid p3"><img src="{{url_for('static',filename='images/products/decor-15.svg')}}"><span>home, but theirs</span></div>
+    <div class="hero-note">NOT<br>GENERIC<br><b>✦</b></div>
+  </div>
+</section>
+<section class="moment-strip"><span>Birthday</span><i>×</i><span>Couple</span><i>×</i><span>Friendship</span><i>×</i><span>Personalized</span><i>×</i><span>Decor</span><i>×</i><span>Unexpected</span></section>
+<section class="moments section-block">
+  <div class="section-head reveal"><div><small>01 / START HERE</small><h2>Shop by the <em>reason.</em></h2></div><p>Because “I need a gift” is not enough information. Tell us why you are giving it.</p></div>
+  <div class="moment-grid">
+  {% set category_photos = {
+    'Birthday':'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1200&q=82',
+    'Couple':'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=82',
+    'Friendship':'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1200&q=82',
+    'Personalized':'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=82',
+    'Decor':'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=1200&q=82'
+  } %}
+  {% for c in cats %}<a class="moment-card moment-{{loop.index}} reveal" href="/shop?category={{c.name}}" style="--cover:url('{{category_photos[c.name]}}')"><div class="moment-photo"></div><div class="moment-shade"></div><div class="moment-top"><span>{{'%02d'|format(loop.index)}}</span><b>{{c.icon}}</b></div><div class="moment-copy"><h3>{{c.name}}</h3><p>{{c.desc}}</p><strong>Explore {{c.count}} gifts <span>↗</span></strong></div><div class="corner"></div><div class="moment-orbit"></div></a>{% endfor %}
+  </div>
+</section>
+<section class="lab section-block">
+  <div class="lab-copy reveal-left"><small>02 / THE GIFT LAB</small><h2>Make the<br><em>ordinary</em><br>specific.</h2><p>Turn a name, date, place, song or inside joke into something physical. The little detail is the whole point.</p><a class="btn light" href="/shop?category=Personalized">Open the personalization shelf ↗</a></div>
+  <div class="lab-art reveal-right"><div class="lab-circle"></div><div class="ticket"><span>ONE PERSON</span><b>ONLY</b><small>name · date · memory · secret</small></div><div class="lab-label">CUSTOM<br>OBJECT<br><em>01/01</em></div></div>
+</section>
+<section class="featured section-block">
+  <div class="section-head reveal"><div><small>03 / CURRENT FAVOURITES</small><h2>Little objects.<br><em>Big reaction.</em></h2></div><a class="underlink" href="/shop">See all 80 gifts →</a></div>
+  <div class="feature-grid">
+    {% for p in products[:6] %}<article class="feature-card {% if loop.index==1 %}wide{% endif %} reveal" data-tilt><a href="/product/{{p.id}}"><div class="feature-image"><img src="{{p.photo}}" alt="{{p.name}} product photo" onerror="this.onerror=null;this.src='{{ url_for('static', filename='images/' + p.image) }}';this.classList.add('photo-fallback')"><span>{{p.tag}}</span></div><div class="feature-meta"><small>{{p.category}}</small><h3>{{p.name}}</h3><b>₹{{p.price}}</b></div></a></article>{% endfor %}
+  </div>
+</section>
+<section class="marquee"><div>MEMORIES → OBJECTS → REACTIONS → MEMORIES → OBJECTS → REACTIONS →</div></section>
+<section class="process section-block">
+  <div class="section-head reveal"><div><small>04 / EASY AS THREE</small><h2>From “what do I buy?”<br>to <em>“how did you know?”</em></h2></div></div>
+  <div class="process-line">
+    <article class="process-step reveal"><span>01</span><div><b>Choose the reason</b><p>Birthday, couple, friend, home or a completely personal moment.</p></div></article>
+    <article class="process-step reveal"><span>02</span><div><b>Choose the object</b><p>Browse keepsakes that feel like they belong to one particular person.</p></div></article>
+    <article class="process-step reveal"><span>03</span><div><b>Add the tiny detail</b><p>Name, date, message, coordinates or memory. Then put it in the bag.</p></div></article>
+  </div>
+</section>
+<section class="final-cta reveal"><div><small>05 / STILL STUCK?</small><h2>Describe the person.<br><em>We'll do the hunting.</em></h2></div><a class="circle-cta" href="/finder">Start<br>Gift<br>Finder <span>↗</span></a></section>
+</main>{% endblock %}

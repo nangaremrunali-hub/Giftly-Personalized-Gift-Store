@@ -1,0 +1,17 @@
+{% extends "base.html" %}{% block title %}Create account — Giftly{% endblock %}{% block content %}
+<section class="auth-page auth-register">
+  <div class="auth-visual">
+    <div class="auth-photo"></div><div class="auth-grain"></div>
+    <div class="auth-caption"><small>MAKE IT PERSONAL</small><h1>Create an account.<br><i>Keep every memory.</i></h1><p>Your saved details make checkout quicker, while your wishlist keeps the good ideas in one place.</p><span class="auth-sticker">one tiny detail<br>changes everything</span></div>
+  </div>
+  <form class="authbox wide" method="post">
+    <div class="auth-kicker">GIFTLY / NEW ACCOUNT</div><h2>Create your account</h2><p class="auth-sub">Your address is saved for faster checkout.</p>
+    <div class="two"><label>Name<input name="name" placeholder="Your name" autocomplete="name" required></label><label>Phone<input name="phone" placeholder="10 digit number" autocomplete="tel"></label></div>
+    <label>Email<input name="email" type="email" placeholder="you@example.com" autocomplete="email" required></label>
+    <div class="two"><label>Password<input name="password" type="password" placeholder="Create a password" autocomplete="new-password" required></label><label>Confirm<input name="confirm" type="password" placeholder="Repeat password" autocomplete="new-password" required></label></div>
+    <label>Address<textarea name="address" placeholder="House / street / area" autocomplete="street-address" required></textarea></label>
+    <div class="three"><label>City<input name="city" placeholder="City" autocomplete="address-level2" required></label><label>State<input name="state" placeholder="State" autocomplete="address-level1" required></label><label>Pincode<input name="pincode" placeholder="Pincode" autocomplete="postal-code" required></label></div>
+    <button class="btn dark full" type="submit">Create account <span>→</span></button>
+    <p class="auth-switch">Already have an account? <a href="/login">Sign in</a></p>
+  </form>
+</section>{% endblock %}

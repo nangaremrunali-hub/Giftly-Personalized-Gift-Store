@@ -1,0 +1,15 @@
+<article class="product-card reveal" data-tilt>
+  <div class="pc-image">
+    <a href="/product/{{p.id}}">
+      <img src="{{p.photo}}" alt="{{p.name}} product photo" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='{{ url_for('static', filename='images/' + p.image) }}';this.classList.add('photo-fallback')">
+      <span class="pc-view">View gift ↗</span>
+    </a>
+    <label>{{p.tag}}</label>
+    <button class="wish" data-wish="{{p.id}}">♡</button>
+  </div>
+  <div class="pc-body">
+    <small>{{p.category}}</small>
+    <a class="pc-name" href="/product/{{p.id}}">{{p.name}}</a>
+    <div class="pc-bottom"><div><strong>₹{{p.price}}</strong> <del>₹{{p.old}}</del><span>★ {{p.rating}}</span></div><button class="add" data-add="{{p.id}}">Add <b>+</b></button></div>
+  </div>
+</article>

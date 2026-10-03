@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block content %}
+<section class="result-head"><div><small>YOUR GIFTLY SHORTLIST</small><h1>These feel like<br><em>your person.</em></h1><p>{{products|length}} matches based on {{person}}, {{budget}} and a {{style|lower}} mood.</p></div><a class="btn light" href="/finder">Try again</a></section>
+<section class="result-grid">{% for p in products %}{% include "_card.html" %}{% endfor %}</section>
+<section class="result-end"><b>Still not sure?</b><span>Tell us more about them and try another combination.</span><a href="/finder">Run the finder again →</a></section>
+{% endblock %}

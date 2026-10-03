@@ -1,0 +1,14 @@
+{% extends "base.html" %}{% block title %}Sign in — Giftly{% endblock %}{% block content %}
+<section class="auth-page auth-login">
+  <div class="auth-visual">
+    <div class="auth-photo"></div><div class="auth-grain"></div>
+    <div class="auth-caption"><small>WELCOME BACK</small><h1>Your next<br><i>memory awaits.</i></h1><p>Save favourites, keep your details ready, and pick up where your gifting story left off.</p><span class="auth-sticker">made<br>for them ✦</span></div>
+  </div>
+  <form class="authbox" method="post">
+    <div class="auth-kicker">GIFTLY / ACCOUNT</div><h2>Sign in</h2><p class="auth-sub">Continue creating thoughtful gifts.</p>
+    <label>Email<input name="email" type="email" placeholder="you@example.com" autocomplete="email" required></label>
+    <label>Password<input name="password" type="password" placeholder="Your password" autocomplete="current-password" required></label>
+    <button class="btn dark full" type="submit">Sign in <span>→</span></button>
+    <p class="auth-switch">New here? <a href="/register">Create an account</a></p>
+  </form>
+</section>{% endblock %}
