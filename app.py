@@ -142,4 +142,5 @@ def order():
 def orders():
  if not session.get("uid"):return redirect(url_for("login",next="/orders"))
  c=con();o=c.execute("SELECT * FROM orders WHERE user_id=? ORDER BY id DESC",(session["uid"],)).fetchall();c.close();return render_template("orders.html",orders=o)
-if __name__=="__main__":init();app.run(debug=True,port=5002)
+init()
+if __name__=="__main__":app.run(debug=True,port=5002)
