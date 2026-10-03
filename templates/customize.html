@@ -1,1 +1,285 @@
-{% extends "base.html" %}{% block content %}<section class="custom"><div class="preview"><img src="{{p.photo}}" alt="{{p.name}} product photo" onerror="this.onerror=null;this.src='{{ url_for('static', filename='images/' + p.image) }}';this.classList.add('photo-fallback')"><div><small>LIVE PREVIEW</small><b id="pvname">YOUR STORY</b><span id="pvmsg">made just for someone special</span></div></div><form class="customform" method="post"><small>MAKE IT YOURS</small><h1>Customize<br><i>{{p.name}}</i></h1><p>{{p.desc}}</p><label>Name / Names<input name="name" data-pv="pvname" placeholder="Rahul & Sneha"></label><label>Special date<input name="date" placeholder="14 February 2026"></label><label>Your message<textarea name="message" data-pv="pvmsg" placeholder="Something only they would understand..."></textarea></label><button class="btn dark full">Save personalization & add to cart →</button></form></section>{% endblock %}
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+/* ===== Giftly Customize Page ===== */
+
+.custom-page {
+    background: #f8f5ef;
+    padding: 70px 6%;
+    min-height: 80vh;
+}
+
+.custom-page .custom-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 70px;
+    align-items: center;
+}
+
+/* ---------- Preview ---------- */
+
+.custom-page .preview-card {
+    background: #e8dfeb;
+    border-radius: 24px;
+    overflow: hidden;
+    min-height: 560px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+}
+
+.custom-page .preview-card img {
+    width: 100%;
+    height: 430px;
+    object-fit: cover;
+    display: block;
+}
+
+.custom-page .preview-info {
+    background: #fffaf3;
+    padding: 22px 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.custom-page .preview-info small {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: #ff654d;
+}
+
+.custom-page .preview-info b {
+    font-size: 20px;
+    color: #18232e;
+}
+
+.custom-page .preview-info span {
+    font-size: 16px;
+    color: #68717a;
+}
+
+/* ---------- Form ---------- */
+
+.custom-page .customform {
+    background: #fffdf9;
+    border-radius: 24px;
+    padding: 42px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.07);
+}
+
+.custom-page .customform > small {
+    display: block;
+    color: #ff654d;
+    font-weight: 800;
+    letter-spacing: 2px;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.custom-page .customform h1 {
+    margin: 0;
+    font-size: 48px;
+    line-height: 1.05;
+    color: #18232e;
+}
+
+.custom-page .customform h1 i {
+    font-weight: 700;
+}
+
+.custom-page .customform > p {
+    color: #68717a;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 20px 0 30px;
+}
+
+/* Form fields */
+
+.custom-page .field {
+    margin-bottom: 22px;
+}
+
+.custom-page .field label {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #18232e;
+    margin-bottom: 8px;
+}
+
+.custom-page .field input,
+.custom-page .field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1.5px solid #ddd8d0;
+    border-radius: 12px;
+    background: #fff;
+    padding: 14px 16px;
+    font-family: inherit;
+    font-size: 15px;
+    color: #18232e;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+.custom-page .field input {
+    height: 50px;
+}
+
+.custom-page .field textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.custom-page .field input:focus,
+.custom-page .field textarea:focus {
+    border-color: #ff654d;
+    box-shadow: 0 0 0 3px rgba(255,101,77,0.12);
+}
+
+.custom-page .field input::placeholder,
+.custom-page .field textarea::placeholder {
+    color: #9a9a9a;
+}
+
+/* Button */
+
+.custom-page .custom-submit {
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    background: #ff654d;
+    color: white;
+    padding: 16px 20px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+    margin-top: 8px;
+}
+
+.custom-page .custom-submit:hover {
+    background: #ef563f;
+    transform: translateY(-2px);
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 850px) {
+
+    .custom-page {
+        padding: 35px 20px;
+    }
+
+    .custom-page .custom-wrap {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .custom-page .preview-card {
+        min-height: auto;
+    }
+
+    .custom-page .preview-card img {
+        height: 330px;
+    }
+
+    .custom-page .customform {
+        padding: 28px 22px;
+    }
+
+    .custom-page .customform h1 {
+        font-size: 38px;
+    }
+}
+</style>
+
+
+<section class="custom-page">
+
+    <div class="custom-wrap">
+
+        <!-- Product Preview -->
+        <div class="preview-card">
+
+            <img
+                src="{{p.photo}}"
+                alt="{{p.name}} product photo"
+                onerror="this.onerror=null;this.src='{{ url_for('static', filename='images/' + p.image) }}';this.classList.add('photo-fallback')"
+            >
+
+            <div class="preview-info">
+                <small>LIVE PREVIEW</small>
+                <b id="pvname">YOUR STORY</b>
+                <span id="pvmsg">made just for someone special</span>
+            </div>
+
+        </div>
+
+
+        <!-- Customization Form -->
+        <form class="customform" method="post">
+
+            <small>MAKE IT YOURS</small>
+
+            <h1>
+                Customize<br>
+                <i>{{p.name}}</i>
+            </h1>
+
+            <p>{{p.desc}}</p>
+
+
+            <div class="field">
+                <label for="name">Name / Names</label>
+                <input
+                    id="name"
+                    name="name"
+                    data-pv="pvname"
+                    placeholder="Rahul & Sneha"
+                >
+            </div>
+
+
+            <div class="field">
+                <label for="date">Special Date</label>
+                <input
+                    id="date"
+                    name="date"
+                    placeholder="14 February 2026"
+                >
+            </div>
+
+
+            <div class="field">
+                <label for="message">Your Message</label>
+                <textarea
+                    id="message"
+                    name="message"
+                    data-pv="pvmsg"
+                    placeholder="Something only they would understand..."
+                ></textarea>
+            </div>
+
+
+            <button type="submit" class="custom-submit">
+                Save personalization & add to cart →
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}
