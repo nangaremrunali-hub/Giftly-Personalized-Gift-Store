@@ -4,8 +4,6 @@
 
 {% block meta_description %}{% if active == 'Personalized' %}Shop personalized gifts online in India, including custom photo gifts, name gifts, keepsakes and unique gifts from Giftly.{% elif active == 'Birthday' %}Shop personalized birthday gifts in India, including custom gifts, photo gifts, name gifts and thoughtful keepsakes from Giftly.{% elif active == 'Couples' %}Shop personalized gifts for couples, including custom couple gifts, anniversary gifts, photo gifts and romantic keepsakes from Giftly.{% elif active == 'Friendship' %}Shop personalized gifts for friends, including custom best friend gifts, photo gifts and thoughtful friendship keepsakes from Giftly.{% else %}Explore Giftly's collection of thoughtful birthday, couple, friendship, personalized and decor gifts.{% endif %}{% endblock %}
 
-{% block canonical %}
-<link rel="canonical" href="https://giftly-personalized-gift-store.vercel.app/shop{% if active %}?category={{ active }}{% endif %}">
-{% endblock %}
+
 
 {% block content %}
