@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,redirect,url_for,session,jsonify,flash
+from flask import Flask,render_template,request,redirect,url_for,session,jsonify,flash,Response
 import sqlite3,os,json,random,string
 from werkzeug.security import generate_password_hash,check_password_hash
 app=Flask(__name__);app.secret_key="giftly-demo-2026";DB="/tmp/giftly.db"
@@ -142,5 +142,28 @@ def order():
 def orders():
  if not session.get("uid"):return redirect(url_for("login",next="/orders"))
  c=con();o=c.execute("SELECT * FROM orders WHERE user_id=? ORDER BY id DESC",(session["uid"],)).fetchall();c.close();return render_template("orders.html",orders=o)
+@app.get("/sitemap.xml")
+def sitemap():
+    base_url = "https://giftly-personalized-gift-store.vercel.app"
+
+    urls = [
+        f"{base_url}/",
+        f"{base_url}/shop",
+        f"{base_url}/finder"
+    ]
+
+    for p in PS:
+        urls.append(f"{base_url}/product/{p['id']}")
+
+    xml = '<?xml version="1.0" encoding="UTF-8"?>'
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+
+    for url in urls:
+        xml += f"<url><loc>{url}</loc></url>"
+
+    xml += "</urlset>"
+
+    return Response(xml, mimetype="application/xml")
+
 init()
 if __name__=="__main__":app.run(debug=True,port=5002)
