@@ -165,5 +165,13 @@ def sitemap():
 
     return Response(xml, mimetype="application/xml")
 
+
+@app.get("/robots.txt")
+def robots():
+    return Response(
+        "User-agent: *\nAllow: /\nSitemap: https://giftly-personalized-gift-store.vercel.app/sitemap.xml\n",
+        mimetype="text/plain"
+    )
+
 init()
 if __name__=="__main__":app.run(debug=True,port=5002)
